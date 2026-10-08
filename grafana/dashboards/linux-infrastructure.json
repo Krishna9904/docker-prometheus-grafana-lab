@@ -1,0 +1,24 @@
+{
+  "annotations":{"list":[]},
+  "editable":true,
+  "graphTooltip":1,
+  "panels":[
+    {"type":"stat","title":"Node Target","gridPos":{"h":4,"w":6,"x":0,"y":0},"targets":[{"expr":"up{job=\"node\"}","refId":"A"}]},
+    {"type":"stat","title":"CPU Usage","gridPos":{"h":4,"w":6,"x":6,"y":0},"targets":[{"expr":"100 - (avg by(instance) (rate(node_cpu_seconds_total{job=\"node\",mode=\"idle\"}[5m])) * 100)","refId":"A"}],"fieldConfig":{"defaults":{"unit":"percent"}}},
+    {"type":"stat","title":"Memory Usage","gridPos":{"h":4,"w":6,"x":12,"y":0},"targets":[{"expr":"(1 - node_memory_MemAvailable_bytes{job=\"node\"} / node_memory_MemTotal_bytes{job=\"node\"}) * 100","refId":"A"}],"fieldConfig":{"defaults":{"unit":"percent"}}},
+    {"type":"stat","title":"Load 1m","gridPos":{"h":4,"w":6,"x":18,"y":0},"targets":[{"expr":"node_load1{job=\"node\"}","refId":"A"}]},
+    {"type":"timeseries","title":"CPU Usage %","gridPos":{"h":8,"w":12,"x":0,"y":4},"targets":[{"expr":"100 - (avg by(instance) (rate(node_cpu_seconds_total{job=\"node\",mode=\"idle\"}[5m])) * 100)","legendFormat":"{{instance}}","refId":"A"}],"fieldConfig":{"defaults":{"unit":"percent"}}},
+    {"type":"timeseries","title":"Memory Usage %","gridPos":{"h":8,"w":12,"x":12,"y":4},"targets":[{"expr":"(1 - node_memory_MemAvailable_bytes{job=\"node\"} / node_memory_MemTotal_bytes{job=\"node\"}) * 100","legendFormat":"{{instance}}","refId":"A"}],"fieldConfig":{"defaults":{"unit":"percent"}}},
+    {"type":"timeseries","title":"Network Receive","gridPos":{"h":8,"w":12,"x":0,"y":12},"targets":[{"expr":"sum by(instance) (rate(node_network_receive_bytes_total{job=\"node\"}[5m]))","legendFormat":"{{instance}}","refId":"A"}],"fieldConfig":{"defaults":{"unit":"Bps"}}},
+    {"type":"timeseries","title":"Network Transmit","gridPos":{"h":8,"w":12,"x":12,"y":12},"targets":[{"expr":"sum by(instance) (rate(node_network_transmit_bytes_total{job=\"node\"}[5m]))","legendFormat":"{{instance}}","refId":"A"}],"fieldConfig":{"defaults":{"unit":"Bps"}}},
+    {"type":"timeseries","title":"Filesystem Usage %","gridPos":{"h":8,"w":12,"x":0,"y":20},"targets":[{"expr":"(1 - node_filesystem_avail_bytes{job=\"node\",fstype!~\"tmpfs|overlay\"} / node_filesystem_size_bytes{job=\"node\",fstype!~\"tmpfs|overlay\"}) * 100","legendFormat":"{{mountpoint}}","refId":"A"}],"fieldConfig":{"defaults":{"unit":"percent"}}},
+    {"type":"timeseries","title":"System Load","gridPos":{"h":8,"w":12,"x":12,"y":20},"targets":[{"expr":"node_load1{job=\"node\"}","legendFormat":"1m","refId":"A"},{"expr":"node_load5{job=\"node\"}","legendFormat":"5m","refId":"B"},{"expr":"node_load15{job=\"node\"}","legendFormat":"15m","refId":"C"}]}
+  ],
+  "schemaVersion":39,
+  "style":"dark",
+  "tags":["prometheus","linux","infrastructure"],
+  "templating":{"list":[]},
+  "time":{"from":"now-30m","to":"now"},
+  "title":"Linux Infrastructure Monitoring",
+  "uid":"linux-infrastructure"
+}
